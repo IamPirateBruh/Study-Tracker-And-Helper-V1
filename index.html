@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>A/L StudyTrack — Sri Lanka</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">A+</div>
+        <div>
+          <strong>A/L StudyTrack</strong>
+          <span>Sri Lanka</span>
+        </div>
+      </div>
+
+      <nav class="nav-list">
+        <button class="nav-item active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+        <button class="nav-item" data-page="tasks"><span>✓</span> Tasks</button>
+        <button class="nav-item" data-page="timetable"><span>▦</span> Timetable</button>
+        <button class="nav-item" data-page="subjects"><span>◈</span> Subjects</button>
+        <button class="nav-item" data-page="focus"><span>◷</span> Focus</button>
+        <button class="nav-item" data-page="analytics"><span>↗</span> Analytics</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button class="nav-item" data-page="settings"><span>⚙</span> Settings</button>
+        <div class="mini-goal">
+          <div class="mini-goal-top">
+            <span>Weekly study goal</span>
+            <strong id="weeklyGoalLabel">20h</strong>
+          </div>
+          <div class="progress-track"><div class="progress-bar" id="weeklyGoalBar" style="width:0%"></div></div>
+          <small id="weeklyGoalSub">0h studied</small>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu">☰</button>
+        <div>
+          <p class="eyebrow" id="todayLabel">Monday, October 5</p>
+          <h1 id="pageTitle">Good evening, Student 👋</h1>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="themeToggle" title="Toggle theme">◐</button>
+          <button class="avatar" id="profileButton">S</button>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- Dashboard -->
+        <section class="page active" id="page-dashboard">
+          <div class="hero-card">
+            <div>
+              <span class="pill light">A/L Journey</span>
+              <h2 id="heroTitle">Build your A/L momentum.</h2>
+              <p id="heroText">Small, consistent sessions beat last-minute cramming. Keep your plan visible and keep moving.</p>
+              <button class="primary-btn" data-page="timetable">Open today's timetable →</button>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="orb orb1"></div>
+              <div class="orb orb2"></div>
+              <div class="hero-ring"></div>
+              <div class="hero-card-mini">
+                <span>Today</span>
+                <strong id="todayMinutes">0 min</strong>
+                <small>study time</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <div class="stat-icon blue">⏱</div>
+              <div><span>Today</span><strong id="statToday">0m</strong><small>Study time</small></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon green">✓</div>
+              <div><span>Tasks</span><strong id="statTasks">0/0</strong><small>Completed today</small></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon purple">◈</div>
+              <div><span>Progress</span><strong id="statProgress">0%</strong><small>Overall completion</small></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon orange">⌛</div>
+              <div><span>Exam</span><strong id="statExam">—</strong><small id="statExamLabel">Set your exam date</small></div>
+            </article>
+          </div>
+
+          <div class="grid-2">
+            <article class="panel">
+              <div class="panel-head"><div><h3>Today’s plan</h3><p id="todayPlanSub">Your next scheduled sessions</p></div><button class="text-btn" data-page="timetable">View all</button></div>
+              <div id="todaySchedule" class="schedule-list"></div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head"><div><h3>Task overview</h3><p>Stay on top of what matters next</p></div><button class="text-btn" data-page="tasks">Manage</button></div>
+              <div class="task-chart" id="taskChart"></div>
+            </article>
+          </div>
+
+          <div class="grid-2">
+            <article class="panel">
+              <div class="panel-head"><div><h3>Subject progress</h3><p>Track your confidence, not just marks</p></div><button class="text-btn" data-page="subjects">Edit</button></div>
+              <div id="subjectProgress" class="subject-progress-list"></div>
+            </article>
+
+            <article class="panel deadline-panel">
+              <div class="panel-head"><div><h3>Upcoming deadlines</h3><p>Assignments, papers and revision targets</p></div></div>
+              <div id="upcomingDeadlines" class="deadline-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Tasks -->
+        <section class="page" id="page-tasks">
+          <div class="section-heading">
+            <div><span class="pill">Work manager</span><h2>Tasks & assignments</h2><p>Turn your workload into a clear next action.</p></div>
+            <button class="primary-btn" id="addTaskBtn">＋ Add task</button>
+          </div>
+          <div class="toolbar">
+            <div class="segmented" id="taskFilters">
+              <button class="active" data-filter="all">All</button>
+              <button data-filter="today">Today</button>
+              <button data-filter="upcoming">Upcoming</button>
+              <button data-filter="done">Completed</button>
+            </div>
+            <select class="select" id="taskSubjectFilter"><option value="all">All subjects</option></select>
+          </div>
+          <div id="tasksList" class="tasks-list"></div>
+        </section>
+
+        <!-- Timetable -->
+        <section class="page" id="page-timetable">
+          <div class="section-heading">
+            <div><span class="pill">Weekly planner</span><h2>Your timetable</h2><p>Build repeatable study blocks around school, tuition and rest.</p></div>
+            <button class="primary-btn" id="addScheduleBtn">＋ Add session</button>
+          </div>
+          <div class="week-strip" id="weekStrip"></div>
+          <div class="day-summary" id="daySummary"></div>
+          <div class="timetable-grid" id="timetableGrid"></div>
+        </section>
+
+        <!-- Subjects -->
+        <section class="page" id="page-subjects">
+          <div class="section-heading">
+            <div><span class="pill">A/L subjects</span><h2>Subject tracker</h2><p>Monitor syllabus completion, confidence and revision priorities.</p></div>
+            <button class="primary-btn" id="addSubjectBtn">＋ Add subject</button>
+          </div>
+          <div id="subjectsGrid" class="subjects-grid"></div>
+        </section>
+
+        <!-- Focus -->
+        <section class="page" id="page-focus">
+          <div class="section-heading">
+            <div><span class="pill">Deep work</span><h2>Focus room</h2><p>A distraction-free timer for study sessions.</p></div>
+          </div>
+          <div class="focus-layout">
+            <article class="focus-card">
+              <div class="focus-mode-tabs" id="focusModeTabs">
+                <button class="active" data-min="25">Focus</button>
+                <button data-min="5">Short break</button>
+                <button data-min="15">Long break</button>
+              </div>
+              <div class="timer-ring"><span id="timerValue">25:00</span><small id="timerStatus">Ready when you are</small></div>
+              <div class="timer-actions">
+                <button class="secondary-btn" id="resetTimer">Reset</button>
+                <button class="primary-btn big" id="startTimer">Start focus</button>
+              </div>
+              <div class="timer-session">
+                <div><span>Sessions today</span><strong id="focusSessions">0</strong></div>
+                <div><span>Minutes today</span><strong id="focusMinutes">0</strong></div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head"><div><h3>Study tips</h3><p>Simple habits that make the timer count</p></div></div>
+              <div class="tips">
+                <div class="tip"><span>01</span><p>Pick one concrete outcome before you start.</p></div>
+                <div class="tip"><span>02</span><p>Keep your phone away during the focus block.</p></div>
+                <div class="tip"><span>03</span><p>After every session, log what you actually finished.</p></div>
+                <div class="tip"><span>04</span><p>Use past papers to test recall instead of rereading everything.</p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Analytics -->
+        <section class="page" id="page-analytics">
+          <div class="section-heading">
+            <div><span class="pill">Insights</span><h2>Study analytics</h2><p>See where your time goes and where consistency can improve.</p></div>
+          </div>
+          <div class="stats-grid analytics-stats">
+            <article class="stat-card"><div class="stat-icon blue">Σ</div><div><span>This week</span><strong id="analyticsWeek">0m</strong><small>Study time</small></div></article>
+            <article class="stat-card"><div class="stat-icon green">⌁</div><div><span>Daily average</span><strong id="analyticsAvg">0m</strong><small>Across logged days</small></div></article>
+            <article class="stat-card"><div class="stat-icon purple">✓</div><div><span>Completion</span><strong id="analyticsCompletion">0%</strong><small>Tasks completed</small></div></article>
+            <article class="stat-card"><div class="stat-icon orange">★</div><div><span>Best day</span><strong id="analyticsBest">—</strong><small>Most study time</small></div></article>
+          </div>
+          <div class="grid-2">
+            <article class="panel"><div class="panel-head"><div><h3>Last 7 days</h3><p>Minutes studied per day</p></div></div><div class="bar-chart" id="barChart"></div></article>
+            <article class="panel"><div class="panel-head"><div><h3>Where to focus</h3><p>Based on current subject progress</p></div></div><div id="focusPriority" class="priority-list"></div></article>
+          </div>
+        </section>
+
+        <!-- Settings -->
+        <section class="page" id="page-settings">
+          <div class="section-heading">
+            <div><span class="pill">Preferences</span><h2>Settings</h2><p>Personalise your study workspace.</p></div>
+          </div>
+          <div class="settings-grid">
+            <article class="panel form-panel">
+              <h3>Student profile</h3>
+              <label>Name<input id="settingsName" type="text" placeholder="Your name" /></label>
+              <label>A/L year<input id="settingsYear" type="number" min="2026" max="2035" /></label>
+              <label>Exam date<input id="settingsExamDate" type="date" /></label>
+              <label>Weekly study goal (hours)<input id="settingsGoal" type="number" min="1" max="168" /></label>
+              <button class="primary-btn" id="saveSettings">Save changes</button>
+            </article>
+            <article class="panel form-panel">
+              <h3>Data</h3>
+              <p class="muted">Everything is stored locally in your browser. No account or server is required for this demo.</p>
+              <button class="secondary-btn" id="exportData">Export my data</button>
+              <button class="danger-btn" id="resetData">Reset all data</button>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head"><div><span class="pill">Quick setup</span><h3 id="modalTitle">Add task</h3></div><button class="icon-btn" id="closeModal">×</button></div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
